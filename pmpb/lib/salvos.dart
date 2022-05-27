@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/pageini.dart';
+import 'package:flutter_application_1/coment%C3%A1rio.dart';
 
 class Salvos extends StatefulWidget {
   const Salvos({Key? key}) : super(key: key);
@@ -53,9 +53,6 @@ class _SalvosState extends State<Salvos> {
                                     style: TextStyle(
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold)),
-                                TextSpan(
-                                    text: "Há 13min",
-                                    style: TextStyle(fontSize: 10))
                               ]))),
                         ],
                       ),
@@ -111,7 +108,12 @@ class _SalvosState extends State<Salvos> {
                               ),
                               IconButton(
                                   icon: Icon(Icons.comment_outlined),
-                                  onPressed: () {}),
+                                  onPressed: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return Coments();
+                                    }));
+                                  }),
                               IconButton(
                                   icon: Icon(Icons.bookmark_border),
                                   onPressed: () {}),
@@ -147,9 +149,6 @@ class _SalvosState extends State<Salvos> {
                                     style: TextStyle(
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold)),
-                                TextSpan(
-                                    text: "Há 2 h",
-                                    style: TextStyle(fontSize: 10))
                               ]))),
                         ],
                       ),
@@ -204,7 +203,12 @@ class _SalvosState extends State<Salvos> {
                               ),
                               IconButton(
                                   icon: Icon(Icons.comment_outlined),
-                                  onPressed: () {}),
+                                  onPressed: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return Coments();
+                                    }));
+                                  }),
                               IconButton(
                                   icon: Icon(Icons.bookmark_border),
                                   onPressed: () {}),

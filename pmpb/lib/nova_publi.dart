@@ -52,38 +52,73 @@ class _novaPubliState extends State<novaPubli> {
 
   buildBody(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
-        child: Expanded(
-          child: Card(
-            child: (Container(
-              child: Column(
+      child: Card(
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.all(10),
+              child: Row(
                 children: [
-                  TextField(
-                    controller: edtTitulo,
+                  Icon(
+                    Icons.person,
+                    size: 40,
                   ),
                   Container(
-                      child: image != null
-                          ? Image.file(image!)
-                          : Icon(Icons.add_box_outlined, size: 120)),
-                  TextButton(
-                      onPressed: () => pickImage(ImageSource.gallery),
-                      child: Text("Coloque sua foto")),
-                  TextField(
-                    controller: edtDescricao,
-                  ),
-                  Container(
-                    child: Text("Teste!"),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context,
-                            Dados(edtTitulo.text, edtDescricao.text, image!));
-                      },
-                      child: Text("APERTA"))
+                    margin: EdgeInsets.only(left: 20),
+                    child: Text(
+                      "Policial",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                  )
                 ],
               ),
-            )),
-          ),
+            ),
+            TextField(
+              maxLength: 30,
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                hintText: "Escreva o título",
+                hintStyle: TextStyle(fontSize: 22),
+                labelText: "Título",
+                labelStyle: TextStyle(color: Colors.black, fontSize: 20),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)),
+              ),
+              controller: edtTitulo,
+            ),
+            TextFormField(
+              maxLines: 7,
+              decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  hintText: "Escreva sua descrição",
+                  hintStyle: TextStyle(fontSize: 22),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black))),
+              controller: edtDescricao,
+            ),
+            Container(
+              child: image != null
+                  ? Image.file(image!)
+                  : TextButton.icon(
+                      onPressed: () => pickImage(ImageSource.gallery),
+                      icon: Icon(Icons.photo_camera),
+                      label: Text("Coloque sua imagem")),
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.red.shade800, onPrimary: Colors.black),
+                onPressed: () {
+                  Navigator.pop(context,
+                      Dados(edtTitulo.text, edtDescricao.text, image!));
+                },
+                child: Text("Enviar"))
+          ],
         ),
       ),
     );

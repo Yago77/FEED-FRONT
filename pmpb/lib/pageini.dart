@@ -1,6 +1,7 @@
 import 'package:flutter_application_1/nova_publi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'comentário.dart';
 import 'dados.dart';
 
 class Home extends StatefulWidget {
@@ -66,38 +67,47 @@ class _HomeState extends State<Home> {
   }
 
   buildItem(index) {
-    return Container(
-      child: Expanded(
-        child: Card(
-          child: Column(
-            children: [
-              Text("${teste[index].titulo}",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(
-                "${teste[index].descricao}",
-              ),
-              Row(
-                children: [
-                  Expanded(
-                      child: image != null
-                          ? Image.file(image!)
-                          : Image.file(teste[index].imagem)),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.thumb_up_alt_outlined)),
-                  IconButton(
-                      onPressed: () {}, icon: Icon(Icons.comment_outlined)),
-                  IconButton(
-                      onPressed: () {}, icon: Icon(Icons.bookmark_outline)),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.share_outlined))
-                ],
-              )
-            ],
+    return SingleChildScrollView(
+      child: Container(
+        child: Expanded(
+          child: Card(
+            child: Column(
+              children: [
+                Text("${teste[index].titulo}",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  "${teste[index].descricao}",
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: image != null
+                            ? Image.file(image!)
+                            : Image.file(teste[index].imagem)),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.thumb_up_alt_outlined)),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return Coments();
+                          }));
+                        },
+                        icon: Icon(Icons.comment_outlined)),
+                    IconButton(
+                        onPressed: () {}, icon: Icon(Icons.bookmark_outline)),
+                    IconButton(
+                        onPressed: () {}, icon: Icon(Icons.share_outlined))
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

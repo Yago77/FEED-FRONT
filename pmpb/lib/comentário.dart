@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/nova_publi.dart';
-
 import 'package:flutter_application_1/pageini.dart';
 import 'package:flutter_application_1/salvos.dart';
 
-class coments extends StatefulWidget {
-  const coments({Key? key}) : super(key: key);
+class Coments extends StatefulWidget {
+  const Coments({Key? key}) : super(key: key);
 
   @override
-  State<coments> createState() => _comentsState();
-
-  void isHideBottomNavBar(bool bool) {}
+  State<Coments> createState() => _ComentsState();
 }
 
-class _comentsState extends State<coments> {
+class _ComentsState extends State<Coments> {
   int currentIndex = 0;
   bool _visible = true;
 
@@ -31,8 +27,6 @@ class _comentsState extends State<coments> {
         backgroundColor: Colors.grey.shade300,
         appBar: buildAppBar(),
         body: buildBody(),
-        floatingActionButton: buildFloatingActionButton(),
-        bottomNavigationBar: buildBottomNavigationBar(),
       ),
     );
   }
@@ -187,9 +181,7 @@ class _comentsState extends State<coments> {
           ),
           IconButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Home();
-                }));
+                Navigator.pop(context);
               },
               icon: Icon(
                 Icons.close,
@@ -198,78 +190,6 @@ class _comentsState extends State<coments> {
               )),
         ],
       ),
-    );
-  }
-
-  buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.red.shade800,
-      selectedFontSize: 12,
-      selectedItemColor: Colors.grey.shade300,
-      unselectedItemColor: Colors.black,
-      iconSize: 30,
-      currentIndex: currentIndex,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      onTap: (index) => setState(() => currentIndex = index),
-      items: [
-        BottomNavigationBarItem(
-            icon: IconButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Home();
-                }));
-              },
-              icon: Icon(Icons.home),
-              color: Colors.black,
-            ),
-            label: "Página Inicial"),
-        BottomNavigationBarItem(
-            icon: IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            ),
-            label: "Procurar"),
-        BottomNavigationBarItem(
-            icon: IconButton(
-              icon: Icon(Icons.groups_rounded),
-              onPressed: () {},
-              color: Colors.black,
-            ),
-            label: "Grupos"),
-        BottomNavigationBarItem(
-            icon: IconButton(
-              icon: Icon(
-                Icons.bookmark,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Salvos();
-                }));
-              },
-            ),
-            label: "Salvos"),
-      ],
-    );
-  }
-
-  buildFloatingActionButton() {
-    return FloatingActionButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) {
-            return novaPubli();
-          }),
-        );
-      },
-      child: Icon(Icons.add_rounded, color: Colors.black, size: 30),
-      backgroundColor: Colors.red.shade800,
     );
   }
 }
