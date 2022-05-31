@@ -4,14 +4,14 @@ import 'package:flutter_application_1/nova_publi.dart';
 import 'package:flutter_application_1/pageini.dart';
 import 'package:flutter_application_1/salvos.dart';
 
-class publi extends StatefulWidget {
-  const publi({Key? key}) : super(key: key);
+class Publi extends StatefulWidget {
+  const Publi({Key? key}) : super(key: key);
 
   @override
-  State<publi> createState() => _publi();
+  State<Publi> createState() => _Publi();
 }
 
-class _publi extends State<publi> {
+class _Publi extends State<Publi> {
   int currentIndex = 0;
 
   @override

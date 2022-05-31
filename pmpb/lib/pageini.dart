@@ -1,8 +1,11 @@
 import 'package:flutter_application_1/nova_publi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/publi.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'comentário.dart';
 import 'dados.dart';
+
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -12,14 +15,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Dados> teste = [];
+  List<Dados> posts = [];
 
   get image => null;
 
   bool salvo = false;
   bool selecionado = false;
   int currentIndex = 0;
-  bool _visible = true;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -60,7 +63,7 @@ class _HomeState extends State<Home> {
 
   buildBody() {
     return ListView.builder(
-        itemCount: teste.length,
+        itemCount: posts.length,
         itemBuilder: (context, index) {
           return buildItem(index);
         });
@@ -68,22 +71,56 @@ class _HomeState extends State<Home> {
 
   buildItem(index) {
     return SingleChildScrollView(
-      child: Container(
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+            return Publi();
+          }));
+        },
         child: Expanded(
           child: Card(
             child: Column(
               children: [
-                Text("${teste[index].titulo}",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                Text(
-                  "${teste[index].descricao}",
+                Row(
+                  children: [
+                    Container(
+                        margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                        child: Image.asset("images/police.png", height: 40)),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(5),
+                      child: Text("Policial Santos\n",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(7),
+                      child: Text("${posts[index].titulo}",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin:
+                            const EdgeInsets.only(left: 5, right: 5, bottom: 5),
+                        child: Text("${posts[index].descricao}",
+                            textAlign: TextAlign.justify),
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   children: [
                     Expanded(
                         child: image != null
-                            ? Image.file(image!)
-                            : Image.file(teste[index].imagem)),
+                            ? Image.file(image)
+                            : Image.file(posts[index].imagem)),
                   ],
                 ),
                 Row(
@@ -95,13 +132,27 @@ class _HomeState extends State<Home> {
                     IconButton(
                         onPressed: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
+                              MaterialPageRoute(builder: (ctx) {
                             return Coments();
                           }));
                         },
                         icon: Icon(Icons.comment_outlined)),
                     IconButton(
-                        onPressed: () {}, icon: Icon(Icons.bookmark_outline)),
+                        onPressed: () {
+                          setState(() {
+                            salvo = !salvo;
+                          });
+                          if (salvo) {
+                            Fluttertoast.showToast(
+                                msg: "Post Salvo!",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.TOP,
+                                timeInSecForIosWeb: 2,
+                                backgroundColor: Colors.black);
+                          }
+                        },
+                        icon: Icon(
+                            salvo ? Icons.bookmark : Icons.bookmark_outline)),
                     IconButton(
                         onPressed: () {}, icon: Icon(Icons.share_outlined))
                   ],
@@ -122,7 +173,7 @@ class _HomeState extends State<Home> {
           return novaPubli();
         }));
         setState(() {
-          teste.add(dados);
+          posts.add(dados);
         });
       },
       child: Icon(

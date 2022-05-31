@@ -1,10 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/pageini.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'dados.dart';
 
 class novaPubli extends StatefulWidget {
@@ -20,15 +17,11 @@ class _novaPubliState extends State<novaPubli> {
   get source => null;
 
   Future pickImage(ImageSource source) async {
-    try {
-      final image = await ImagePicker().pickImage(source: source);
-      if (image == null) return;
+    final image = await ImagePicker().pickImage(source: source);
+    if (image == null) return;
 
-      final imageTemporaria = File(image.path);
-      setState(() => this.image = imageTemporaria);
-    } on PlatformException catch (e) {
-      print('Failed: $e');
-    }
+    final imageTemporaria = File(image.path);
+    setState(() => this.image = imageTemporaria);
   }
 
   TextEditingController edtTitulo = TextEditingController();
@@ -46,80 +39,98 @@ class _novaPubliState extends State<novaPubli> {
       home: Scaffold(
         appBar: buildAppBar(),
         body: buildBody(context),
+        floatingActionButton: buildFloatingActionButton(),
       ),
     );
   }
 
   buildBody(BuildContext context) {
     return SingleChildScrollView(
-      child: Card(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.person,
-                    size: 40,
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.person,
+                  size: 40,
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 20),
+                  child: Text(
+                    "Policial",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20),
-                    child: Text(
-                      "Policial",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
-            TextField(
-              maxLength: 30,
-              decoration: InputDecoration(
+          ),
+          TextField(
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(5),
+              helperText: "",
+              border: UnderlineInputBorder(),
+              hintText: "Escreva o título",
+              hintStyle: TextStyle(fontSize: 22),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black)),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black)),
+            ),
+            controller: edtTitulo,
+          ),
+          TextFormField(
+            maxLines: 5,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(5),
+                helperText: "",
                 border: UnderlineInputBorder(),
-                hintText: "Escreva o título",
+                hintText: "Escreva sua descrição",
                 hintStyle: TextStyle(fontSize: 22),
-                labelText: "Título",
-                labelStyle: TextStyle(color: Colors.black, fontSize: 20),
                 enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black)),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black)),
-              ),
-              controller: edtTitulo,
-            ),
-            TextFormField(
-              maxLines: 7,
-              decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  hintText: "Escreva sua descrição",
-                  hintStyle: TextStyle(fontSize: 22),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black))),
-              controller: edtDescricao,
-            ),
-            Container(
-              child: image != null
-                  ? Image.file(image!)
-                  : TextButton.icon(
-                      onPressed: () => pickImage(ImageSource.gallery),
-                      icon: Icon(Icons.photo_camera),
-                      label: Text("Coloque sua imagem")),
-            ),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.red.shade800, onPrimary: Colors.black),
-                onPressed: () {
-                  Navigator.pop(context,
-                      Dados(edtTitulo.text, edtDescricao.text, image!));
-                },
-                child: Text("Enviar"))
-          ],
-        ),
+                    borderSide: BorderSide(color: Colors.black))),
+            controller: edtDescricao,
+          ),
+          Container(
+            margin: EdgeInsets.all(8),
+            child: image != null
+                ? Image.file(image!, height: 400, width: 450)
+                : TextButton.icon(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => Container(
+                                child: SimpleDialog(
+                                  children: [
+                                    TextButton(
+                                        onPressed: () {
+                                          pickImage(ImageSource.gallery);
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Galeria")),
+                                    TextButton(
+                                        onPressed: () {
+                                          pickImage(ImageSource.camera);
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Câmera")),
+                                  ],
+                                ),
+                              ));
+                    },
+                    icon: Icon(Icons.photo_camera),
+                    label: Text("Coloque sua imagem")),
+          ),
+          TextButton.icon(
+              onPressed: () {},
+              icon: Icon(Icons.groups_rounded),
+              label: Text("Escolher sistemas"))
+        ],
       ),
     );
   }
@@ -147,5 +158,15 @@ class _novaPubliState extends State<novaPubli> {
                 )),
           ],
         ));
+  }
+
+  buildFloatingActionButton() {
+    return FloatingActionButton(
+        backgroundColor: Colors.red.shade800,
+        child: Icon(Icons.check, color: Colors.black, size: 30),
+        onPressed: () {
+          Navigator.pop(context,
+              Dados(edtTitulo.text, edtDescricao.text, image!));
+        });
   }
 }

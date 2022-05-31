@@ -12,7 +12,7 @@ class Coments extends StatefulWidget {
 
 class _ComentsState extends State<Coments> {
   int currentIndex = 0;
-  bool _visible = true;
+  bool _visible = false;
 
   @override
   Widget build(BuildContext context) {
