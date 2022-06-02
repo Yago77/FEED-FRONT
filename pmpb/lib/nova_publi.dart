@@ -144,7 +144,7 @@ class _novaPubliState extends State<novaPubli> {
           children: [
             Image.asset("images/brasao.png", height: 40),
             Text(
-              "Post",
+              "Criar Publicação",
               style: TextStyle(color: Colors.black),
             ),
             IconButton(
@@ -160,13 +160,13 @@ class _novaPubliState extends State<novaPubli> {
         ));
   }
 
-  buildFloatingActionButton() {
+   buildFloatingActionButton() {
     return FloatingActionButton(
         backgroundColor: Colors.red.shade800,
         child: Icon(Icons.check, color: Colors.black, size: 30),
         onPressed: () {
           Navigator.pop(context,
-              Dados(edtTitulo.text, edtDescricao.text, image!));
+              Dados(edtTitulo.text, edtDescricao.text, imagem : image ?? null));
         });
   }
 }

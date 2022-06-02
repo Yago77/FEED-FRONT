@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/nova_publi.dart';
 import 'package:flutter_application_1/pageini.dart';
-import 'package:flutter_application_1/salvos.dart';
+
 
 class Publi extends StatefulWidget {
   const Publi({Key? key}) : super(key: key);
@@ -25,86 +24,15 @@ class _Publi extends State<Publi> {
       ),
       home: Scaffold(
         backgroundColor: Colors.grey.shade300,
-        floatingActionButton: buildFloatingActionButton(),
         appBar: buildAppBar(),
         body: buildBody(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        bottomNavigationBar: buildBottomNavigationBar(),
+        
       ),
     );
   }
 
-  buildFloatingActionButton() {
-    return FloatingActionButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) {
-            return novaPubli();
-          }),
-        );
-      },
-      child: Icon(Icons.add_rounded, color: Colors.black, size: 30),
-      backgroundColor: Colors.red.shade800,
-    );
-  }
 
-  buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.red.shade800,
-      selectedFontSize: 12,
-      selectedItemColor: Colors.grey.shade300,
-      unselectedItemColor: Colors.black,
-      iconSize: 30,
-      currentIndex: currentIndex,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      onTap: (index) => setState(() => currentIndex = index),
-      items: [
-        BottomNavigationBarItem(
-            icon: IconButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Home();
-                }));
-              },
-              icon: Icon(Icons.home),
-              color: Colors.black,
-            ),
-            label: "Página Inicial"),
-        BottomNavigationBarItem(
-            icon: IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            ),
-            label: "Procurar"),
-        BottomNavigationBarItem(
-            icon: IconButton(
-              icon: Icon(Icons.groups_rounded),
-              onPressed: () {},
-              color: Colors.black,
-            ),
-            label: "Grupos"),
-        BottomNavigationBarItem(
-            icon: IconButton(
-              icon: Icon(
-                Icons.bookmark,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Salvos();
-                }));
-              },
-            ),
-            label: "Salvos"),
-      ],
-    );
-  }
+  
 
   buildBody() {
     return SingleChildScrollView(
@@ -115,13 +43,8 @@ class _Publi extends State<Publi> {
               icon: Icon(Icons.account_circle), iconSize: 55, onPressed: () {}),
           Container(
               margin: EdgeInsets.all(10),
-              child: Text.rich(TextSpan(children: <TextSpan>[
-                TextSpan(
-                    text: "Policial Santos\n",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
-                TextSpan(text: " Há 13min", style: TextStyle(fontSize: 10))
-              ]))),
+              child: Text("Usuário"),
+          ),
         ],
       ),
       Container(
@@ -141,7 +64,7 @@ class _Publi extends State<Publi> {
           Container(
             padding: EdgeInsets.all(10.0),
             child: Text(
-              "A lazy rain am I The skies refuse to cry Cremation takes its piece of your supply The night is dressed like noon A sailor spoke too soon And China's on the dark side of the Moon Hear me now Platypus are a few The secret life of roo A personality I never knew (Get it on) My crater weighs a ton The archer's on the run And no one stands alone behind the Sun It's been a long time since I made a new friend Waiting on another black summer to end It's been a long time and you never know when Waiting on another black summer to end Back the flaming whip Are sailing on our censorship Riding on a headless horse to make the trip.",
+              "lorem",
               style: TextStyle(fontSize: 18),
               textAlign: TextAlign.justify,
             ),
@@ -175,10 +98,10 @@ class _Publi extends State<Publi> {
               children: [
                 Text.rich(TextSpan(children: <TextSpan>[
                   TextSpan(
-                      text: "Pablo\n",
+                      text: "Usuário\n",
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   TextSpan(
-                    text: "The skies refuse to cry é tipo isso e tá tudo bem!",
+                    text: "Comentário",
                   )
                 ]))
               ],
@@ -194,10 +117,10 @@ class _Publi extends State<Publi> {
               children: [
                 Text.rich(TextSpan(children: <TextSpan>[
                   TextSpan(
-                      text: "Nino\n",
+                      text: "Usuário\n",
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   TextSpan(
-                    text: "Concordo plenamente!",
+                    text: "Comentário",
                   )
                 ]))
               ],
@@ -217,7 +140,7 @@ class _Publi extends State<Publi> {
           children: [
             Image.asset("images/brasao.png", height: 40),
             Text(
-              "Nova Publicação",
+              "Publicação",
               style: TextStyle(color: Colors.black),
             ),
             IconButton(
