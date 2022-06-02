@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/coment%C3%A1rio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Salvos extends StatefulWidget {
   const Salvos({Key? key}) : super(key: key);
@@ -10,6 +11,8 @@ class Salvos extends StatefulWidget {
 }
 
 class _SalvosState extends State<Salvos> {
+  bool salvo = false;
+  bool selecionado = false;
   int currentIndex = 0;
 
   @override
@@ -90,14 +93,20 @@ class _SalvosState extends State<Salvos> {
                             ],
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
                                 child: Row(
                                   children: [
                                     IconButton(
-                                      icon: Icon(Icons.thumb_up_alt_outlined),
-                                      onPressed: () {},
+                                      icon: Icon(selecionado
+                                          ? Icons.thumb_up_alt_rounded
+                                          : Icons.thumb_up_alt_outlined),
+                                      onPressed: () {
+                                        setState(() {
+                                          selecionado = !selecionado;
+                                        });
+                                      },
                                     ),
                                     Text(
                                       "25",
@@ -115,10 +124,22 @@ class _SalvosState extends State<Salvos> {
                                     }));
                                   }),
                               IconButton(
-                                  icon: Icon(Icons.bookmark_border),
-                                  onPressed: () {}),
-                              IconButton(
-                                  icon: Icon(Icons.share), onPressed: () {}),
+                                  onPressed: () {
+                                    setState(() {
+                                      salvo = !salvo;
+                                    });
+                                    if (salvo) {
+                                      Fluttertoast.showToast(
+                                          msg: "Post Salvo!",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.TOP,
+                                          timeInSecForIosWeb: 2,
+                                          backgroundColor: Colors.black);
+                                    }
+                                  },
+                                  icon: Icon(salvo
+                                      ? Icons.bookmark
+                                      : Icons.bookmark_outline)),
                             ],
                           )
                         ],

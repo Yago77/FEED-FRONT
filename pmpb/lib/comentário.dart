@@ -57,29 +57,15 @@ class _ComentsState extends State<Coments> {
             IconButton(
                 onPressed: () {
                   setState(() {
-                    selecionado =! selecionado;
+                    selecionado = !selecionado;
                   });
                 },
                 icon: Icon(selecionado
-                    ? Icons.thumb_up_alt_outlined
-                    : Icons.thumb_up_alt_rounded)),
+                    ? Icons.thumb_up_alt_rounded
+                    : Icons.thumb_up_alt_outlined)),
             IconButton(
                 onPressed: () {
-                  AlertDialog(
-                    title: Text("Comentar"),
-                    content: TextField(
-                      decoration:
-                          InputDecoration(hintText: "Escreva um comentário"),
-                      autofocus: true,
-                    ),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text("Enviar"))
-                    ],
-                  );
+                  openDialog();
                 },
                 icon: Icon(Icons.comment_outlined)),
             IconButton(
@@ -97,7 +83,6 @@ class _ComentsState extends State<Coments> {
                   }
                 },
                 icon: Icon(salvo ? Icons.bookmark : Icons.bookmark_outline)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.share_outlined))
           ],
         ),
         Row(
@@ -236,4 +221,21 @@ class _ComentsState extends State<Coments> {
       ),
     );
   }
+
+  Future openDialog() => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: Text("Comentário"),
+            content: TextField(
+              autofocus: true,
+              decoration: InputDecoration(hintText: "Escreva um comentário"),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Enviar"))
+            ],
+          ));
 }

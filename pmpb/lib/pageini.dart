@@ -116,8 +116,14 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.thumb_up_alt_outlined)),
+                      onPressed: () {
+                        setState(() {
+                          selecionado = !selecionado;
+                        });
+                      },
+                      icon: Icon(selecionado
+                          ? Icons.thumb_up_alt_rounded
+                          : Icons.thumb_up_alt_outlined)),
                   IconButton(
                       onPressed: () {
                         Navigator.push(context,
@@ -142,7 +148,6 @@ class _HomeState extends State<Home> {
                       },
                       icon: Icon(
                           salvo ? Icons.bookmark : Icons.bookmark_outline)),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.share_outlined))
                 ],
               ),
             ],
